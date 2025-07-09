@@ -121,4 +121,4 @@ EXPOSE 3000
 # Define the command to run your application when the container starts
 CMD ["npm", "start"]
 
-### **Step 3: Create a .dockerignore file**
+
