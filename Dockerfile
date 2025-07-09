@@ -1,16 +1,21 @@
-# Stage 1
+# Stage 1: Build the React app
 FROM node:20-slim AS builder
+
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci --omit=dev
+RUN npm install --omit=dev
 COPY . .
+RUN npm run build
 
-# Stage 2
-FROM node:20-slim
-WORKDIR /app
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/src ./src
-COPY --from=builder /app/package.json ./package.json
+# Stage 2: Serve with Nginx
+FROM nginx:stable-alpine
 
-EXPOSE 3000
-CMD ["npm", "start"]
+# Copy built files to Nginx public folder
+COPY --from=builder /app/build /usr/share/nginx/html
+
+# Copy custom Nginx config if needed (optional)
+# COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
