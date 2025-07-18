@@ -1,0 +1,31 @@
+# jenkins-app-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins-app-deployment
+  namespace: jenkins-app-ns
+  labels:
+    app: jenkins-app
+spec:
+  replicas: 2 # You can adjust the number of replicas
+  selector:
+    matchLabels:
+      app: jenkins-app
+  template:
+    metadata:
+      labels:
+        app: jenkins-app
+    spec:
+      containers:
+        - name: jenkins-app-container
+          # The image name will be updated by Jenkins during the pipeline
+          # The 'sed' command in Jenkinsfile expects this format.
+          image: ekangaki/jenkins-app:initial_placeholder_tag # <--- This tag will be replaced
+          ports:
+            - containerPort: 3000 # Your Node.js app's port
+          readinessProbe: # Crucial for rolling updates
+            httpGet:
+              path: / # Adjust if your app has a specific health endpoint
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 10
