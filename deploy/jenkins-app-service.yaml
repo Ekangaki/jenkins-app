@@ -1,0 +1,18 @@
+# jenkins-app-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-app-service
+  namespace: jenkins-app-ns
+  labels:
+    app: jenkins-app
+spec:
+  selector:
+    app: jenkins-app
+  ports:
+    - protocol: TCP
+      port: 80 # Service exposed on port 80
+      targetPort: 3000 # Forwards to container port 3000
+  type: NodePort # Or LoadBalancer/Ingress for external access (as discussed previously)
+
+
