@@ -12,7 +12,7 @@ spec:
   ports:
     - protocol: TCP
       port: 80 # Service exposed on port 80
-      targetPort: 3000 # Forwards to container port 3000
+      targetPort: 80 # Forwards to container port 3000
   type: NodePort # Or LoadBalancer/Ingress for external access (as discussed previously)
 
 
