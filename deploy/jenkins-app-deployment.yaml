@@ -22,10 +22,10 @@ spec:
           # The 'sed' command in Jenkinsfile expects this format.
           image: ekangaki/jenkins-app:initial_placeholder_tag # <--- This tag will be replaced
           ports:
-            - containerPort: 3000 # Your Node.js app's port
+            - containerPort: 80 # Your Node.js app's port
           readinessProbe: # Crucial for rolling updates
             httpGet:
               path: / # Adjust if your app has a specific health endpoint
-              port: 3000
+              port: 80
             initialDelaySeconds: 10
             periodSeconds: 10
