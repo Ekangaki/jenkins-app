@@ -20,7 +20,7 @@ spec:
         - name: jenkins-app-container
           # The image name will be updated by Jenkins during the pipeline
           # The 'sed' command in Jenkinsfile expects this format.
-          image: ekangaki/jenkins-app:initial_placeholder_tag # <--- This tag will be replaced
+          image: ekangaki/jenkins-app:2 # <--- This tag will be replaced
           ports:
             - containerPort: 80 # Your Node.js app's port
           readinessProbe: # Crucial for rolling updates
