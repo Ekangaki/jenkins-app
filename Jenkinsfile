@@ -10,7 +10,10 @@ pipeline {
         CONTAINER_PORT   = '3000'      // Adjust if needed
         HOST_PORT        = '3000'      // Adjust if needed
     }
-
+        triggers {
+        // This is the trigger that listens for a push to the GitHub repository.
+        githubPush()
+    }
     stages {
         stage('Clone Repository') {
             steps {
